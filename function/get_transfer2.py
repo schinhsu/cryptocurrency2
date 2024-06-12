@@ -23,7 +23,7 @@ def get_tx_by_hash(tronObj,txid,columns=columns):
         txlist['FromContract'] = txlist.apply(lambda tx:res['contract_map'][tx['from_address']],axis=1)
         txlist['ToContract'] = txlist.apply(lambda tx:res['contract_map'][tx['to_address']],axis=1)
         txlist[['BlockNo','TxID','Date(UTC+8)','TxFee']] = [[res['block'],res['hash'],
-                                                             datetime.datetime.fromtimestamp(res['timestamp']/1000.0),
+                                                             datetime.datetime.fromtimestamp(res['timestamp']/1000.0)+datetime.timedelta(hours=8),
                                                              res['cost']['energy_fee']/(10**6)] for _ in range(len(txlist))]
         txlist['FromLabel'] = txlist.apply(lambda tx:'' if res['addressTag'].get(tx['from_address']) is None else res['addressTag'][tx['from_address']],axis=1)
         txlist['ToLabel'] = txlist.apply(lambda tx:'' if res['addressTag'].get(tx['to_address']) is None else res['addressTag'][tx['to_address']],axis=1)
