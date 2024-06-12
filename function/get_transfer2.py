@@ -32,7 +32,7 @@ def get_tx_by_hash(tronObj,txid,columns=columns):
                                         'tokenType':'TXType'})
         txlist = txlist[columns]
     else:
-        blockNo,txid,date,fee = res['block'],res['hash'],datetime.datetime.fromtimestamp(res['timestamp']/1000.0),res['cost']['energy_fee']/(10**6)
+        blockNo,txid,date,fee = res['block'],res['hash'],datetime.datetime.fromtimestamp(res['timestamp']/1000.0)+datetime.timedelta(hours=8),res['cost']['energy_fee']/(10**6)
         from_,to_ = res['contractData']['owner_address'],res['contractData']['to_address']
         from_contract = res['contract_map'][from_]
         from_label = '' if res['addressTag'].get(from_) is None else res['addressTag'][from_]
